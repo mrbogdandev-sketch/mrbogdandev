@@ -16,6 +16,7 @@
       --radius: 20px;
       --transition: all .35s cubic-bezier(.25,.9,.25,1);
       --music-glow: rgba(255, 59, 59, 0.15);
+      --music-glow-2: rgba(100, 150, 255, 0.1);
     }
 
     * { box-sizing: border-box; }
@@ -154,56 +155,140 @@
       box-shadow: 0 0 30px rgba(255,255,255,0.08);
     }
 
-    /* Музыкальная секция */
-    .music {
+    /* Секция альбома */
+    .album {
       position: relative;
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 59, 59, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 40px;
     }
 
-    .music::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, var(--music-glow) 0%, transparent 70%);
-      opacity: 0.6;
-      animation: pulseGlow 4s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.6; }
-    }
-
-    .music:hover {
-      box-shadow: 0 20px 80px rgba(255, 59, 59, 0.15);
-    }
-
-    .music-content {
-      display: flex;
-      align-items: center;
-      gap: 30px;
+    .album-header {
+      text-align: center;
+      margin-bottom: 40px;
       position: relative;
       z-index: 2;
     }
 
-    .song-cover {
-      width: 150px;
-      height: 150px;
+    .album-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #ff6b6b, #6496ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .album-artist {
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .songs-grid {
+      display: grid;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Первая песня - красное свечение */
+    .song-red {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 59, 59, 0.2);
       border-radius: 16px;
+      padding: 20px;
+      transition: var(--transition);
+    }
+
+    .song-red::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: -20px;
+      bottom: -20px;
+      background: radial-gradient(circle, var(--music-glow) 0%, transparent 70%);
+      opacity: 0.3;
+      animation: pulseGlow 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+      border-radius: 24px;
+    }
+
+    .song-red:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-3px);
+      border-color: rgba(255, 59, 59, 0.3);
+    }
+
+    /* Вторая песня - голубое свечение */
+    .song-blue {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(100, 150, 255, 0.2);
+      border-radius: 16px;
+      padding: 20px;
+      transition: var(--transition);
+    }
+
+    .song-blue::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: -20px;
+      bottom: -20px;
+      background: radial-gradient(circle, var(--music-glow-2) 0%, transparent 70%);
+      opacity: 0.3;
+      animation: pulseGlow2 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+      border-radius: 24px;
+    }
+
+    .song-blue:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-3px);
+      border-color: rgba(100, 150, 255, 0.3);
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.4; }
+    }
+
+    @keyframes pulseGlow2 {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.4; }
+    }
+
+    .song-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .song-cover {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
       object-fit: cover;
-      border: 3px solid rgba(255, 59, 59, 0.3);
       flex-shrink: 0;
       transition: var(--transition);
     }
 
+    .song-red .song-cover {
+      border: 2px solid rgba(255, 59, 59, 0.3);
+    }
+
+    .song-blue .song-cover {
+      border: 2px solid rgba(100, 150, 255, 0.3);
+    }
+
     .song-cover:hover {
       transform: scale(1.05);
-      border-color: rgba(255, 59, 59, 0.5);
     }
 
     .song-info {
@@ -212,23 +297,22 @@
 
     .song-title {
       font-weight: 700;
-      font-size: 24px;
-      margin-bottom: 8px;
-      background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: var(--accent);
     }
 
     .song-artist {
-      color: #ff6b6b;
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 20px;
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: var(--accent);
+      opacity: 0.8;
     }
 
     .song-controls {
       display: flex;
-      gap: 15px;
+      gap: 12px;
       align-items: center;
       flex-wrap: wrap;
     }
@@ -237,16 +321,16 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: var(--accent);
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
       transition: var(--transition);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .control-btn:hover {
@@ -255,24 +339,20 @@
     }
 
     .download-btn {
-      background: rgba(255, 59, 59, 0.2);
-      border-color: rgba(255, 59, 59, 0.3);
-      color: #ff6b6b;
-    }
-
-    .download-btn:hover {
-      background: rgba(255, 59, 59, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--accent);
     }
 
     .audio-player {
       width: 100%;
-      margin-top: 20px;
+      margin-top: 12px;
     }
 
     audio {
       width: 100%;
-      border-radius: 12px;
-      height: 40px;
+      border-radius: 10px;
+      height: 32px;
     }
 
     footer {
@@ -288,19 +368,23 @@
       header img { width: 150px; height: 150px; }
       section { padding: 26px; }
       
-      .music-content {
+      .song-content {
         flex-direction: column;
         text-align: center;
-        gap: 20px;
+        gap: 15px;
       }
       
       .song-cover {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
       }
       
       .song-controls {
         justify-content: center;
+      }
+      
+      .album-title {
+        font-size: 26px;
       }
     }
   </style>
@@ -323,22 +407,53 @@
       <p>Пока ничего нет… но скоро появятся мощные проекты, обещаю 😎</p>
     </section>
 
-    <!-- Новая секция с одной песней -->
-    <section class="music">
-      <div class="music-content">
-        <img src="song1.jpg" alt="Golubok Skibidi Rizz REFAB" class="song-cover">
-        <div class="song-info">
-          <div class="song-title">Golubok Skibidi Rizz REFAB</div>
-          <div class="song-artist">Пернатый Бит</div>
-          <div class="song-controls">
-            <button class="control-btn" onclick="togglePlay('audio1')">▶ Прослушать</button>
-            <a href="song1.mp3" download="Golubok Skibidi Rizz REFAB - Пернатый Бит.mp3" class="control-btn download-btn">📥 Скачать</a>
+    <!-- Альбом Добро и Зло -->
+    <section class="album">
+      <div class="album-header">
+        <div class="album-title">Добро и Зло</div>
+        <div class="album-artist">Пернатый Бит</div>
+      </div>
+      
+      <div class="songs-grid">
+        <!-- Первая песня - красное свечение -->
+        <div class="song-red">
+          <div class="song-content">
+            <img src="song1.jpg" alt="Добро" class="song-cover">
+            <div class="song-info">
+              <div class="song-title">Добро</div>
+              <div class="song-artist">Пернатый Бит</div>
+              <div class="song-controls">
+                <button class="control-btn" onclick="togglePlay('audio1')">▶ Прослушать</button>
+                <a href="song1.mp3" download="Пернатый_Бит_Добро.mp3" class="control-btn download-btn">📥 Скачать</a>
+              </div>
+              <div class="audio-player">
+                <audio id="audio1" controls style="display: none;">
+                  <source src="song1.mp3" type="audio/mpeg">
+                  Ваш браузер не поддерживает аудио элемент.
+                </audio>
+              </div>
+            </div>
           </div>
-          <div class="audio-player">
-            <audio id="audio1" controls style="display: none;">
-              <source src="song1.mp3" type="audio/mpeg">
-              Ваш браузер не поддерживает аудио элемент.
-            </audio>
+        </div>
+
+        <!-- Вторая песня - голубое свечение -->
+        <div class="song-blue">
+          <div class="song-content">
+            <img src="song2.jpg" alt="Зло" class="song-cover">
+            <div class="song-info">
+              <div class="song-title">Зло</div>
+              <div class="song-artist">Пернатый Бит</div>
+              <div class="song-controls">
+                <button class="control-btn" onclick="togglePlay('audio2')">▶ Прослушать</button>
+                <a href="song2.mp3" download="Пернатый_Бит_Зло.mp3" class="control-btn download-btn">📥 Скачать</a>
+              </div>
+              <div class="audio-player">
+                <audio id="audio2" controls style="display: none;">
+                  <source src="song2.mp3" type="audio/mpeg">
+                  Ваш браузер не поддерживает аудио элемент.
+                </audio>
+              </div>
+            </div>
           </div>
         </div>
       </div>
