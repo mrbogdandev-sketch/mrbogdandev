@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MrBogdanDev — Портфолио</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000;
+      --accent: #fff;
+      --muted: rgba(255, 255, 255, 0.65);
+      --border: rgba(255, 255, 255, 0.12);
+      --glass: rgba(255, 255, 255, 0.06);
+      --radius: 20px;
+      --transition: all .35s cubic-bezier(.25,.9,.25,1);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--accent);
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.07), transparent 60%),
+                  radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05), transparent 70%),
+                  #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px;
+      overflow-x: hidden;
+      background-attachment: fixed;
+      background-size: cover;
+      animation: subtleMove 30s ease-in-out infinite alternate;
+    }
+
+    @keyframes subtleMove {
+      from { background-position: 0% 0%; }
+      to { background-position: 100% 100%; }
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 960px;
+      gap: 40px;
+      animation: fadeIn 1s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+
+    header img {
+      width: 200px;
+      height: 200px;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      box-shadow: 0 0 60px rgba(255,255,255,0.08);
+      transition: var(--transition);
+    }
+    header img:hover {
+      transform: scale(1.06) rotate(2deg);
+      box-shadow: 0 0 80px rgba(255,255,255,0.12);
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0;
+      background: linear-gradient(90deg, #fff, #bfbfbf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 17px;
+    }
+
+    section {
+      width: 100%;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(20px) saturate(140%);
+      padding: 36px;
+      box-shadow: 0 8px 50px rgba(0,0,0,0.65);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,0.03), transparent 60%);
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+    section:hover::before { opacity: 1; }
+
+    section:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 80px rgba(255,255,255,0.07);
+    }
+
+    section h2 {
+      font-size: 26px;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .projects p {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .contact a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.06);
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      padding: 14px 22px;
+      border-radius: 14px;
+      transition: var(--transition);
+      font-size: 15px;
+    }
+    .contact a:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(255,255,255,0.08);
+    }
+
+    footer {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 30px; }
+      header img { width: 150px; height: 150px; }
+      section { padding: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="me.jpg" alt="Богдан — MrBogdanDev" />
+      <h1>Привет! Я Богдан</h1>
+      <div class="subtitle">aka <strong>MrBogdanDev</strong> — Python разработчик, 13 лет</div>
+    </header>
+
+    <section class="intro">
+      <h2>Приветствие 👋</h2>
+      <p>Добро пожаловать в мой цифровой мир. Я обожаю Python, люблю делать крутые штуки и превращать идеи в код. Этот сайт — мой старт на пути большого разработчика.</p>
+    </section>
+
+    <section class="projects">
+      <h2>Мои проекты 💻</h2>
+      <p>Пока ничего нет… но скоро появятся мощные проекты, обещаю 😎</p>
+    </section>
+
+    <section class="contact">
+      <h2>Связаться 📬</h2>
+      <a href="https://t.me/bogdandevOff" target="_blank" rel="noopener noreferrer">@bogdandevOff</a>
+      <p style="color: var(--muted); margin-top: 10px;">Пиши в Telegram — я отвечаю быстро!</p>
+    </section>
+
+    <footer>© 2025 MrBogdanDev — Создано с ❤️, стилем и Python</footer>
+  </div>
+</body>
+</html>
