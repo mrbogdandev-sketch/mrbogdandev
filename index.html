@@ -15,6 +15,7 @@
       --glass: rgba(255, 255, 255, 0.06);
       --radius: 20px;
       --transition: all .35s cubic-bezier(.25,.9,.25,1);
+      --music-glow: rgba(255, 59, 59, 0.15);
     }
 
     * { box-sizing: border-box; }
@@ -153,6 +154,127 @@
       box-shadow: 0 0 30px rgba(255,255,255,0.08);
     }
 
+    /* Музыкальная секция */
+    .music {
+      position: relative;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 59, 59, 0.2);
+    }
+
+    .music::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--music-glow) 0%, transparent 70%);
+      opacity: 0.6;
+      animation: pulseGlow 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    .music:hover {
+      box-shadow: 0 20px 80px rgba(255, 59, 59, 0.15);
+    }
+
+    .music-content {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .song-cover {
+      width: 150px;
+      height: 150px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 3px solid rgba(255, 59, 59, 0.3);
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .song-cover:hover {
+      transform: scale(1.05);
+      border-color: rgba(255, 59, 59, 0.5);
+    }
+
+    .song-info {
+      flex: 1;
+    }
+
+    .song-title {
+      font-weight: 700;
+      font-size: 24px;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .song-artist {
+      color: #ff6b6b;
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .song-controls {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--accent);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .download-btn {
+      background: rgba(255, 59, 59, 0.2);
+      border-color: rgba(255, 59, 59, 0.3);
+      color: #ff6b6b;
+    }
+
+    .download-btn:hover {
+      background: rgba(255, 59, 59, 0.3);
+    }
+
+    .audio-player {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    audio {
+      width: 100%;
+      border-radius: 12px;
+      height: 40px;
+    }
+
     footer {
       font-size: 13px;
       color: var(--muted);
@@ -165,6 +287,21 @@
       h1 { font-size: 30px; }
       header img { width: 150px; height: 150px; }
       section { padding: 26px; }
+      
+      .music-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+      
+      .song-cover {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .song-controls {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -186,6 +323,27 @@
       <p>Пока ничего нет… но скоро появятся мощные проекты, обещаю 😎</p>
     </section>
 
+    <!-- Новая секция с одной песней -->
+    <section class="music">
+      <div class="music-content">
+        <img src="song1.jpg" alt="Рассвет" class="song-cover">
+        <div class="song-info">
+          <div class="song-title">Рассвет</div>
+          <div class="song-artist">Пернатый Бит</div>
+          <div class="song-controls">
+            <button class="control-btn" onclick="togglePlay('audio1')">▶ Прослушать</button>
+            <a href="song1.mp3" download="Пернатый_Бит_Рассвет.mp3" class="control-btn download-btn">📥 Скачать</a>
+          </div>
+          <div class="audio-player">
+            <audio id="audio1" controls style="display: none;">
+              <source src="song1.mp3" type="audio/mpeg">
+              Ваш браузер не поддерживает аудио элемент.
+            </audio>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="contact">
       <h2>Связаться 📬</h2>
       <a href="https://t.me/bogdandevOff" target="_blank" rel="noopener noreferrer">@bogdandevOff</a>
@@ -194,5 +352,28 @@
 
     <footer>© 2025 MrBogdanDev — Создано с ❤️, стилем и Python</footer>
   </div>
+
+  <script>
+    function togglePlay(audioId) {
+      const audio = document.getElementById(audioId);
+      const allAudios = document.querySelectorAll('audio');
+      
+      // Останавливаем все другие аудио
+      allAudios.forEach(a => {
+        if (a.id !== audioId) {
+          a.pause();
+          a.currentTime = 0;
+        }
+      });
+      
+      if (audio.paused) {
+        audio.style.display = 'block';
+        audio.play();
+      } else {
+        audio.pause();
+        audio.style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html>
