@@ -16,7 +16,7 @@
       --radius: 20px;
       --transition: all .35s cubic-bezier(.25,.9,.25,1);
       --music-glow: rgba(255, 59, 59, 0.15);
-      --music-glow-2: rgba(100, 200, 255, 0.1);
+      --custom-glow: rgba(100, 200, 255, 0.1); /* Желто-голубое свечение */
     }
 
     * { box-sizing: border-box; }
@@ -155,7 +155,7 @@
       box-shadow: 0 0 30px rgba(255,255,255,0.08);
     }
 
-    /* Первая музыкальная секция - красная */
+    /* Музыкальная секция */
     .music {
       position: relative;
       background: rgba(255, 255, 255, 0.08);
@@ -170,23 +170,28 @@
       width: 200%;
       height: 200%;
       background: radial-gradient(circle, var(--music-glow) 0%, transparent 70%);
-      opacity: 0.4;
+      opacity: 0.6;
       animation: pulseGlow 4s ease-in-out infinite;
       pointer-events: none;
     }
 
-    .music:hover {
-      box-shadow: 0 20px 80px rgba(255, 59, 59, 0.1);
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
     }
 
-    /* Вторая музыкальная секция - желто-голубая */
-    .music-2 {
+    .music:hover {
+      box-shadow: 0 20px 80px rgba(255, 59, 59, 0.15);
+    }
+
+    /* Кастомная секция с желто-голубым свечением */
+    .custom {
       position: relative;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(100, 200, 255, 0.2);
     }
 
-    .music-2::before {
+    .custom::before {
       content: "";
       position: absolute;
       top: -50%;
@@ -194,25 +199,20 @@
       width: 200%;
       height: 200%;
       background: 
-        radial-gradient(circle at 30% 30%, rgba(255, 255, 100, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(100, 200, 255, 0.08) 0%, transparent 50%);
-      opacity: 0.4;
-      animation: pulseGlow2 5s ease-in-out infinite alternate;
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 100, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(100, 200, 255, 0.1) 0%, transparent 50%);
+      opacity: 0.5;
+      animation: customGlow 5s ease-in-out infinite alternate;
       pointer-events: none;
     }
 
-    .music-2:hover {
-      box-shadow: 0 20px 80px rgba(100, 200, 255, 0.08);
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.5; }
-    }
-
-    @keyframes pulseGlow2 {
+    @keyframes customGlow {
       0% { opacity: 0.3; }
-      100% { opacity: 0.5; }
+      100% { opacity: 0.6; }
+    }
+
+    .custom:hover {
+      box-shadow: 0 20px 80px rgba(100, 200, 255, 0.1);
     }
 
     .music-content {
@@ -233,20 +233,9 @@
       transition: var(--transition);
     }
 
-    .music-2 .song-cover {
-      border: 3px solid rgba(100, 200, 255, 0.3);
-    }
-
     .song-cover:hover {
       transform: scale(1.05);
-    }
-
-    .music .song-cover:hover {
       border-color: rgba(255, 59, 59, 0.5);
-    }
-
-    .music-2 .song-cover:hover {
-      border-color: rgba(100, 200, 255, 0.5);
     }
 
     .song-info {
@@ -257,32 +246,16 @@
       font-weight: 700;
       font-size: 24px;
       margin-bottom: 8px;
-    }
-
-    .music .song-title {
       background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .music-2 .song-title {
-      background: linear-gradient(90deg, #ffd700, #87ceeb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
     .song-artist {
+      color: #ff6b6b;
       font-weight: 600;
       font-size: 16px;
       margin-bottom: 20px;
-    }
-
-    .music .song-artist {
-      color: #ff6b6b;
-    }
-
-    .music-2 .song-artist {
-      color: #87ceeb;
     }
 
     .song-controls {
@@ -319,18 +292,8 @@
       color: #ff6b6b;
     }
 
-    .music-2 .download-btn {
-      background: rgba(100, 200, 255, 0.2);
-      border-color: rgba(100, 200, 255, 0.3);
-      color: #87ceeb;
-    }
-
     .download-btn:hover {
       background: rgba(255, 59, 59, 0.3);
-    }
-
-    .music-2 .download-btn:hover {
-      background: rgba(100, 200, 255, 0.3);
     }
 
     .audio-player {
@@ -392,7 +355,7 @@
       <p>Пока ничего нет… но скоро появятся мощные проекты, обещаю 😎</p>
     </section>
 
-    <!-- Первый трек - красное свечение -->
+    <!-- Секция с музыкой -->
     <section class="music">
       <div class="music-content">
         <img src="song1.jpg" alt="Рассвет" class="song-cover">
@@ -413,25 +376,11 @@
       </div>
     </section>
 
-    <!-- Второй трек - желто-голубое свечение -->
-    <section class="music-2">
-      <div class="music-content">
-        <img src="song2.jpg" alt="Ночной полёт" class="song-cover">
-        <div class="song-info">
-          <div class="song-title">Ночной полёт</div>
-          <div class="song-artist">Пернатый Бит</div>
-          <div class="song-controls">
-            <button class="control-btn" onclick="togglePlay('audio2')">▶ Прослушать</button>
-            <a href="song2.mp3" download="Пернатый_Бит_Ночной_полет.mp3" class="control-btn download-btn">📥 Скачать</a>
-          </div>
-          <div class="audio-player">
-            <audio id="audio2" controls style="display: none;">
-              <source src="song2.mp3" type="audio/mpeg">
-              Ваш браузер не поддерживает аудио элемент.
-            </audio>
-          </div>
-        </div>
-      </div>
+    <!-- Новая кастомная секция -->
+    <section class="custom">
+      <h2>✨ Твоя секция</h2>
+      <p style="color: var(--muted);">Здесь ты можешь добавить что угодно! Просто отредактируй этот текст и настрой стили под себя.</p>
+      <!-- Добавь сюда свой контент -->
     </section>
 
     <section class="contact">
