@@ -2,743 +2,209 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MrBogdanDev — Портфолио</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BgdDev</title>
   <style>
-    :root {
-      --bg: #000;
-      --accent: #fff;
-      --muted: rgba(255, 255, 255, 0.65);
-      --border: rgba(255, 255, 255, 0.12);
-      --glass: rgba(255, 255, 255, 0.06);
+    :root{
+      --bg:#000;
+      --accent:#fff;
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.12);
+      --muted: rgba(255,255,255,0.7);
       --radius: 20px;
-      --transition: all .35s cubic-bezier(.25,.9,.25,1);
-      --music-glow: rgba(255, 59, 59, 0.15);
-      --countdown-glow: rgba(255, 0, 0, 0.3);
+      --max-width: 1200px;
     }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: 'Inter', system-ui, sans-serif;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, #000 80%);
       color: var(--accent);
-      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.07), transparent 60%),
-                  radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05), transparent 70%),
-                  #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 40px;
-      overflow-x: hidden;
-      background-attachment: fixed;
-      background-size: cover;
-      animation: subtleMove 30s ease-in-out infinite alternate;
+      overflow-x:hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height:1.4;
     }
 
-    @keyframes subtleMove {
-      from { background-position: 0% 0%; }
-      to { background-position: 100% 100%; }
+    header{
+      position:fixed;
+      top:20px;left:50%;transform:translateX(-50%);
+      width:90%;max-width:var(--max-width);
+      background:var(--glass-bg);
+      backdrop-filter:blur(20px) saturate(150%);
+      border:1px solid var(--glass-border);
+      border-radius:var(--radius);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 24px;z-index:1000;
     }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:50px;height:50px;border-radius:12px;object-fit:cover}
+    .brand h1{font-size:22px;font-weight:700}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;margin-left:20px}
+    nav a:hover{color:var(--accent)}
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 960px;
-      gap: 40px;
-      animation: fadeIn 1s ease both;
-      position: relative;
-    }
+    main{padding-top:120px}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: none; }
-    }
+    section{padding:80px 24px;max-width:var(--max-width);margin:auto;position:relative}
 
-    header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 16px;
+    .hero{
+      display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;
     }
+    .hero img.hero-photo{
+      width:100%;
+      max-width:900px;
+      aspect-ratio:16/9;
+      object-fit:cover;
+      border-radius:var(--radius);
+      border:1px solid var(--glass-border);
+      background:var(--glass-bg);
+      backdrop-filter:blur(12px);
+      box-shadow:0 0 60px rgba(255,255,255,0.05);
+    }
+    .hero h2{font-size:clamp(32px,6vw,64px);font-weight:800}
+    .hero p{color:var(--muted);font-size:16px}
 
-    header img {
-      width: 200px;
-      height: 200px;
-      border-radius: 28px;
-      border: 1px solid var(--border);
-      object-fit: cover;
-      box-shadow: 0 0 60px rgba(255,255,255,0.08);
-      transition: var(--transition);
+    .projects{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;
     }
-    header img:hover {
-      transform: scale(1.06) rotate(2deg);
-      box-shadow: 0 0 80px rgba(255,255,255,0.12);
+    .project{
+      background:var(--glass-bg);
+      border:1px solid var(--glass-border);
+      border-radius:var(--radius);
+      overflow:hidden;
+      backdrop-filter:blur(15px) saturate(180%);
+      display:flex;flex-direction:column;justify-content:space-between;
     }
+    .project img{width:100%;aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--glass-border)}
+    .project .meta{padding:18px}
+    .project h3{margin-bottom:6px;font-size:18px;font-weight:700}
+    .project p{color:var(--muted);font-size:14px;margin-bottom:10px}
+    .btn{display:inline-block;padding:10px 16px;background:var(--accent);color:#000;border-radius:12px;text-decoration:none;font-weight:700}
 
-    h1 {
-      font-size: 40px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin: 0;
-      background: linear-gradient(90deg, #fff, #bfbfbf);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .gallery{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;
     }
+    .gallery img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;border:1px solid var(--glass-border);background:var(--glass-bg);backdrop-filter:blur(15px)}
 
-    .subtitle {
-      color: var(--muted);
-      font-weight: 500;
-      font-size: 17px;
+    .contact{
+      display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;
+      background:var(--glass-bg);
+      border:1px solid var(--glass-border);
+      border-radius:var(--radius);
+      padding:40px;
+      backdrop-filter:blur(15px) saturate(180%);
     }
+    .contact img{width:200px;height:200px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--glass-border)}
+    .contact a{padding:12px 20px;background:var(--accent);color:#000;border-radius:14px;text-decoration:none;font-weight:700}
 
-    section {
-      width: 100%;
-      background: var(--glass);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      backdrop-filter: blur(20px) saturate(140%);
-      padding: 36px;
-      box-shadow: 0 8px 50px rgba(0,0,0,0.65);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    section::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(120deg, rgba(255,255,255,0.03), transparent 60%);
-      opacity: 0;
-      transition: opacity .4s ease;
-    }
-    section:hover::before { opacity: 1; }
-
-    section:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 80px rgba(255,255,255,0.07);
-    }
-
-    section h2 {
-      font-size: 26px;
-      margin-bottom: 14px;
-      font-weight: 700;
-    }
-
-    .projects p {
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .contact a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.06);
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-      border: 1px solid var(--border);
-      padding: 14px 22px;
-      border-radius: 14px;
-      transition: var(--transition);
-      font-size: 15px;
-    }
-    .contact a:hover {
-      background: rgba(255,255,255,0.12);
-      transform: translateY(-3px);
-      box-shadow: 0 0 30px rgba(255,255,255,0.08);
-    }
-
-    /* Музыкальная секция */
-    .music {
-      position: relative;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 59, 59, 0.2);
-    }
-
-    .music::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, var(--music-glow) 0%, transparent 70%);
-      opacity: 0.6;
-      animation: pulseGlow 4s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 0.6; }
-    }
-
-    .music:hover {
-      box-shadow: 0 20px 80px rgba(255, 59, 59, 0.15);
-    }
-
-    .music-content {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .song-cover {
-      width: 150px;
-      height: 150px;
-      border-radius: 16px;
-      object-fit: cover;
-      border: 3px solid rgba(255, 59, 59, 0.3);
-      flex-shrink: 0;
-      transition: var(--transition);
-    }
-
-    .song-cover:hover {
-      transform: scale(1.05);
-      border-color: rgba(255, 59, 59, 0.5);
-    }
-
-    .song-info {
-      flex: 1;
-    }
-
-    .song-title {
-      font-weight: 700;
-      font-size: 24px;
-      margin-bottom: 8px;
-      background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .song-artist {
-      color: #ff6b6b;
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    .song-controls {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .control-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: var(--accent);
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .control-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .download-btn {
-      background: rgba(255, 59, 59, 0.2);
-      border-color: rgba(255, 59, 59, 0.3);
-      color: #ff6b6b;
-    }
-
-    .download-btn:hover {
-      background: rgba(255, 59, 59, 0.3);
-    }
-
-    .audio-player {
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    audio {
-      width: 100%;
-      border-radius: 12px;
-      height: 40px;
-    }
-
-    /* Секция обратного отсчета */
-    .countdown-wrapper {
-      position: relative;
-      width: 100%;
-      margin: 40px 0;
-    }
-
-    .countdown {
-      position: relative;
-      background: rgba(255, 0, 0, 0.05);
-      border: 1px solid rgba(255, 0, 0, 0.2);
-      text-align: center;
-      padding: 50px 36px;
-      border-radius: 30px;
-      clip-path: polygon(
-        0% 15%, 5% 0%, 15% 5%, 30% 0%, 45% 5%, 
-        55% 0%, 70% 5%, 85% 0%, 95% 5%, 100% 15%,
-        95% 30%, 100% 45%, 95% 60%, 100% 75%,
-        95% 85%, 100% 100%, 85% 95%, 70% 100%,
-        55% 95%, 45% 100%, 30% 95%, 15% 100%,
-        5% 95%, 0% 85%, 5% 70%, 0% 55%, 5% 40%, 0% 25%
-      );
-      z-index: 2;
-    }
-
-    .countdown::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, var(--countdown-glow) 0%, transparent 70%);
-      opacity: 0.4;
-      animation: redPulse 3s ease-in-out infinite alternate;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    @keyframes redPulse {
-      0% { opacity: 0.2; transform: scale(1); }
-      100% { opacity: 0.5; transform: scale(1.05); }
-    }
-
-    .countdown:hover {
-      box-shadow: 0 20px 80px rgba(255, 0, 0, 0.1);
-    }
-
-    .countdown-title {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 30px;
-      background: linear-gradient(90deg, #ff3333, #ff6666);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.02em;
-      animation: textFlicker 5s infinite alternate;
-    }
-
-    @keyframes textFlicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-        text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-      }
-      20%, 24%, 55% {
-        opacity: 0.8;
-        text-shadow: none;
-      }
-    }
-
-    .timer {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .timer-unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 80px;
-    }
-
-    .timer-value {
-      font-size: 48px;
-      font-weight: 800;
-      background: linear-gradient(90deg, #ff3333, #ff6666);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1;
-      margin-bottom: 8px;
-      animation: timerFlicker 3s infinite alternate;
-    }
-
-    @keyframes timerFlicker {
-      0%, 100% {
-        opacity: 1;
-        text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
-      }
-      50% {
-        opacity: 0.9;
-        text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
-      }
-    }
-
-    .timer-label {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* Глитч-эффект вокруг секции */
-    .glitch-overlay {
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      background: 
-        linear-gradient(90deg, transparent 49%, rgba(255, 0, 0, 0.1) 50%, transparent 51%),
-        linear-gradient(0deg, transparent 49%, rgba(255, 0, 0, 0.1) 50%, transparent 51%);
-      background-size: 20px 20px;
-      z-index: 1;
-      opacity: 0.3;
-      animation: glitchMove 0.5s infinite linear;
-      pointer-events: none;
-      border-radius: 35px;
-      clip-path: polygon(
-        0% 15%, 5% 0%, 15% 5%, 30% 0%, 45% 5%, 
-        55% 0%, 70% 5%, 85% 0%, 95% 5%, 100% 15%,
-        95% 30%, 100% 45%, 95% 60%, 100% 75%,
-        95% 85%, 100% 100%, 85% 95%, 70% 100%,
-        55% 95%, 45% 100%, 30% 95%, 15% 100%,
-        5% 95%, 0% 85%, 5% 70%, 0% 55%, 5% 40%, 0% 25%
-      );
-    }
-
-    @keyframes glitchMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(5px, 5px); }
-    }
-
-    .glitch-lines {
-      position: absolute;
-      top: -15px;
-      left: -15px;
-      right: -15px;
-      bottom: -15px;
-      background: 
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 0, 0, 0.1) 2px, rgba(255, 0, 0, 0.1) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 0, 0, 0.1) 2px, rgba(255, 0, 0, 0.1) 4px);
-      z-index: 0;
-      opacity: 0.2;
-      animation: glitchScan 2s infinite linear;
-      pointer-events: none;
-      border-radius: 40px;
-      clip-path: polygon(
-        0% 15%, 5% 0%, 15% 5%, 30% 0%, 45% 5%, 
-        55% 0%, 70% 5%, 85% 0%, 95% 5%, 100% 15%,
-        95% 30%, 100% 45%, 95% 60%, 100% 75%,
-        95% 85%, 100% 100%, 85% 95%, 70% 100%,
-        55% 95%, 45% 100%, 30% 95%, 15% 100%,
-        5% 95%, 0% 85%, 5% 70%, 0% 55%, 5% 40%, 0% 25%
-      );
-    }
-
-    @keyframes glitchScan {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(10px); }
-    }
-
-    /* Плавающие глитч-квадраты */
-    .glitch-squares {
-      position: absolute;
-      top: -25px;
-      left: -25px;
-      right: -25px;
-      bottom: -25px;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .glitch-square {
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background: rgba(255, 0, 0, 0.3);
-      animation: floatSquare 4s infinite ease-in-out;
-      opacity: 0;
-    }
-
-    @keyframes floatSquare {
-      0%, 100% {
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 0;
-      }
-      10%, 90% {
-        opacity: 0.7;
-      }
-      50% {
-        transform: translate(20px, -15px) rotate(180deg);
-        opacity: 1;
-      }
-    }
-
-    /* Глитч-вспышки */
-    .glitch-flash {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 0, 0, 0.2);
-      z-index: 1;
-      opacity: 0;
-      animation: glitchFlash 8s infinite;
-      pointer-events: none;
-      border-radius: 35px;
-      clip-path: polygon(
-        0% 15%, 5% 0%, 15% 5%, 30% 0%, 45% 5%, 
-        55% 0%, 70% 5%, 85% 0%, 95% 5%, 100% 15%,
-        95% 30%, 100% 45%, 95% 60%, 100% 75%,
-        95% 85%, 100% 100%, 85% 95%, 70% 100%,
-        55% 95%, 45% 100%, 30% 95%, 15% 100%,
-        5% 95%, 0% 85%, 5% 70%, 0% 55%, 5% 40%, 0% 25%
-      );
-    }
-
-    @keyframes glitchFlash {
-      0%, 95%, 100% { opacity: 0; }
-      96%, 97%, 98% { opacity: 0.4; }
-    }
-
-    /* Глитч-линии */
-    .glitch-line {
-      position: absolute;
-      height: 2px;
-      background: rgba(255, 0, 0, 0.5);
-      z-index: 1;
-      animation: glitchLine 6s infinite;
-      opacity: 0;
-    }
-
-    @keyframes glitchLine {
-      0%, 90%, 100% { 
-        opacity: 0;
-        transform: translateX(-100%);
-      }
-      91%, 94% { 
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    footer {
-      font-size: 13px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 20px;
-      letter-spacing: 0.02em;
-    }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 30px; }
-      header img { width: 150px; height: 150px; }
-      section { padding: 26px; }
-      
-      .music-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-      }
-      
-      .song-cover {
-        width: 120px;
-        height: 120px;
-      }
-      
-      .song-controls {
-        justify-content: center;
-      }
-      
-      .countdown-title {
-        font-size: 26px;
-      }
-      
-      .timer-value {
-        font-size: 36px;
-      }
-      
-      .timer-unit {
-        min-width: 60px;
-      }
-      
-      .countdown {
-        padding: 30px 20px;
-        clip-path: polygon(
-          0% 10%, 5% 0%, 15% 5%, 30% 0%, 45% 5%, 
-          55% 0%, 70% 5%, 85% 0%, 95% 5%, 100% 10%,
-          95% 25%, 100% 40%, 95% 55%, 100% 70%,
-          95% 80%, 100% 100%, 85% 95%, 70% 100%,
-          55% 95%, 45% 100%, 30% 95%, 15% 100%,
-          5% 95%, 0% 80%, 5% 65%, 0% 50%, 5% 35%, 0% 20%
-        );
-      }
-    }
+    footer{text-align:center;padding:40px 0;color:var(--muted);font-size:13px}
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <img src="me.jpg" alt="Богдан — MrBogdanDev" />
-      <h1>Привет! Я Богдан</h1>
-      <div class="subtitle">aka <strong>MrBogdanDev</strong> — Python разработчик, 13 лет</div>
-    </header>
+  <header>
+    <div class="brand">
+      <img src="logo.jpg" alt="logo">
+      <h1>BgdDev</h1>
+    </div>
+    <nav>
+      <a href="#projects">Проекты</a>
+      <a href="#art">Арт Среда</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#contact">Связь</a>
+    </nav>
+  </header>
 
-    <section class="intro">
-      <h2>Приветствие 👋</h2>
-      <p>Добро пожаловать в мой цифровой мир. Я обожаю Python, люблю делать крутые штуки и превращать идеи в код. Этот сайт — мой старт на пути большого разработчика.</p>
+  <main>
+    <section class="hero">
+      <img class="hero-photo" src="pre.jpg" alt="Главное фото">
+      <h2>BgdDev — Маняти Богдан</h2>
+      <p>Python-разработчик и немного дизайнер</p>
     </section>
 
-    <section class="projects">
-      <h2>Мои проекты 💻</h2>
-      <p>Пока ничего нет… но скоро появятся мощные проекты, обещаю 😎</p>
-    </section>
-
-    <!-- Новая секция с таймером обратного отсчета -->
-    <div class="countdown-wrapper">
-      <div class="glitch-squares" id="glitchSquares"></div>
-      <div class="glitch-flash"></div>
-      <div class="glitch-lines"></div>
-      <div class="glitch-overlay"></div>
-      <div class="glitch-line" style="top: 20%; width: 80%; animation-delay: 0s;"></div>
-      <div class="glitch-line" style="top: 50%; width: 60%; animation-delay: 2s;"></div>
-      <div class="glitch-line" style="top: 80%; width: 70%; animation-delay: 4s;"></div>
-      
-      <section class="countdown">
-        <div class="countdown-title">До ???</div>
-        <div class="timer">
-          <div class="timer-unit">
-            <div class="timer-value" id="days">00</div>
-            <div class="timer-label">дней</div>
-          </div>
-          <div class="timer-unit">
-            <div class="timer-value" id="hours">00</div>
-            <div class="timer-label">часов</div>
-          </div>
-          <div class="timer-unit">
-            <div class="timer-value" id="minutes">00</div>
-            <div class="timer-label">минут</div>
-          </div>
-          <div class="timer-unit">
-            <div class="timer-value" id="seconds">00</div>
-            <div class="timer-label">секунд</div>
+    <section id="projects">
+      <h2 style="text-align:center;margin-bottom:30px;">Мои проекты</h2>
+      <div class="projects">
+        <div class="project">
+          <img src="project1.jpg" alt="Проект 1">
+          <div class="meta">
+            <h3>Проект 1</h3>
+            <p>Описание проекта.</p>
+            <a class="btn" href="#">Перейти</a>
           </div>
         </div>
-      </section>
-    </div>
-
-    <!-- Музыкальная секция -->
-    <section class="music">
-      <div class="music-content">
-        <img src="song1.jpg" alt="Рассвет" class="song-cover">
-        <div class="song-info">
-          <div class="song-title">Birding Rave</div>
-          <div class="song-artist">Пернатый Бит</div>
-          <div class="song-controls">
-            <button class="control-btn" onclick="togglePlay('audio1')">▶ Прослушать</button>
-            <a href="song1.mp3" download="BirdingRave.mp3" class="control-btn download-btn">📥 Скачать</a>
+        <div class="project">
+          <img src="project2.jpg" alt="Проект 2">
+          <div class="meta">
+            <h3>Проект 2</h3>
+            <p>Описание проекта.</p>
+            <a class="btn" href="#">Перейти</a>
           </div>
-          <div class="audio-player">
-            <audio id="audio1" controls style="display: none;">
-              <source src="song1.mp3" type="audio/mpeg">
-              Ваш браузер не поддерживает аудио элемент.
-            </audio>
+        </div>
+        <div class="project">
+          <img src="project3.jpg" alt="Проект 3">
+          <div class="meta">
+            <h3>Проект 3</h3>
+            <p>Описание проекта.</p>
+            <a class="btn" href="#">Перейти</a>
+          </div>
+        </div>
+        <div class="project">
+          <img src="project4.jpg" alt="Проект 4">
+          <div class="meta">
+            <h3>Проект 4</h3>
+            <p>Описание проекта.</p>
+            <a class="btn" href="#">Перейти</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="contact">
-      <h2>Связаться 📬</h2>
-      <a href="https://t.me/bogdandevOff" target="_blank" rel="noopener noreferrer">@bogdandevOff</a>
-      <p style="color: var(--muted); margin-top: 10px;">Пиши в Telegram — я отвечаю быстро!</p>
+    <section id="art">
+      <h2 style="text-align:center;margin-bottom:30px;">Арт Среда</h2>
+      <div class="projects">
+        <div class="project">
+          <img src="art1.jpg" alt="Арт 1">
+          <div class="meta">
+            <h3>Арт 1</h3>
+            <p>Мой арт-проект, нарисованный в цифровом стиле.</p>
+            <a class="btn" href="#">Посмотреть</a>
+          </div>
+        </div>
+        <div class="project">
+          <img src="art2.jpg" alt="Арт 2">
+          <div class="meta">
+            <h3>Арт 2</h3>
+            <p>Иллюстрация, созданная вручную и доработанная в Photoshop.</p>
+            <a class="btn" href="#">Посмотреть</a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <footer>© 2025 MrBogdanDev — Создано с ❤️</footer>
-  </div>
+    <section id="gallery">
+      <h2 style="text-align:center;margin-bottom:30px;">Фотогалерея</h2>
+      <div class="gallery">
+        <img src="photo1.jpg" alt="photo1">
+        <img src="photo2.jpg" alt="photo2">
+        <img src="photo3.jpg" alt="photo3">
+        <img src="photo4.jpg" alt="photo4">
+        <img src="photo5.jpg" alt="photo5">
+        <img src="photo6.jpg" alt="photo6">
+        <img src="photo7.jpg" alt="photo7">
+        <img src="photo8.jpg" alt="photo8">
+        <img src="photo9.jpg" alt="photo9">
+        <img src="photo10.jpg" alt="photo10">
+      </div>
+    </section>
 
-  <script>
-    function togglePlay(audioId) {
-      const audio = document.getElementById(audioId);
-      const allAudios = document.querySelectorAll('audio');
-      
-      // Останавливаем все другие аудио
-      allAudios.forEach(a => {
-        if (a.id !== audioId) {
-          a.pause();
-          a.currentTime = 0;
-        }
-      });
-      
-      if (audio.paused) {
-        audio.style.display = 'block';
-        audio.play();
-      } else {
-        audio.pause();
-        audio.style.display = 'none';
-      }
-    }
+    <section id="contact">
+      <div class="contact">
+        <img src="support.jpg" alt="Связь">
+        <a href="https://t.me/bogdanpodvohov" target="_blank">Связаться</a>
+      </div>
+    </section>
+  </main>
 
-    // Таймер обратного отсчета до 31 октября
-    function updateCountdown() {
-      const now = new Date();
-      const currentYear = now.getFullYear();
-      const targetDate = new Date(currentYear, 9, 31); // 9 = октябрь (месяцы от 0 до 11)
-      
-      // Если дата уже прошла в этом году, берем следующий год
-      if (now > targetDate) {
-        targetDate.setFullYear(currentYear + 1);
-      }
-      
-      const diff = targetDate - now;
-      
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      document.getElementById('days').textContent = days.toString().padStart(2, '0');
-      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-    }
-    
-    // Создание плавающих глитч-квадратов
-    function createGlitchSquares() {
-      const container = document.getElementById('glitchSquares');
-      const squareCount = 15;
-      
-      for (let i = 0; i < squareCount; i++) {
-        const square = document.createElement('div');
-        square.className = 'glitch-square';
-        
-        // Случайная позиция
-        const left = Math.random() * 100;
-        const top = Math.random() * 100;
-        square.style.left = `${left}%`;
-        square.style.top = `${top}%`;
-        
-        // Случайная задержка анимации
-        square.style.animationDelay = `${Math.random() * 4}s`;
-        
-        container.appendChild(square);
-      }
-    }
-    
-    // Обновляем таймер каждую секунду
-    setInterval(updateCountdown, 1000);
-    updateCountdown(); // Инициализация при загрузке
-    createGlitchSquares(); // Создаем глитч-квадраты
-  </script>
+  <footer>
+    <p>© BgdDev — Маняти Богдан</p>
+  </footer>
 </body>
 </html>
